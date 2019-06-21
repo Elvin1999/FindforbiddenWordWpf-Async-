@@ -25,16 +25,13 @@ namespace FindForbiddenWordWpf.Commands
 
         public void Execute(object parameter)
         {
-
             var count = WordViewModel.AllWords.Count;
             if (count != 0)
             {
                 Config config = new Config();
-
                 config.ForbiddenWords = WordViewModel.AllWords;
                 config.SeriailizeFilialsToJson();
             }
-
         }
     }
 }
