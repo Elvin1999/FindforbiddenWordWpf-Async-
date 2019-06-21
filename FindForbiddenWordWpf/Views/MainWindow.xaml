@@ -15,7 +15,7 @@
             </StackPanel>
          
             <StackPanel Orientation="Horizontal" Margin="50">
-                <Button Width="120" Name="Start" Command="{Binding StartCommand}" Margin="100,0" Height="40" FontSize="22" Content="Start"  Background="White"></Button>
+                <Button Width="200" Name="Start" Command="{Binding StartCommand}" Margin="100,0" Height="40" FontSize="22" Content="Start to find words"  Background="White"></Button>
                 <StackPanel>
                     <Label Content="Drop here" FontSize="22"></Label>
                 <ListView AllowDrop="True" Name="wordListView" Width="200" DragEnter="WordListView_DragEnter" DragDrop.Drop="WordListView_Drop" Height="100" Margin="0,0"></ListView>
