@@ -36,11 +36,8 @@ namespace FindForbiddenWordWpf
             else
             {
                 wordViewModel.AllWords = new List<ForbiddenWord>();
-            }
-      
+            }      
             DataContext = wordViewModel;
-
-        }
-       
+        }       
     }
 }

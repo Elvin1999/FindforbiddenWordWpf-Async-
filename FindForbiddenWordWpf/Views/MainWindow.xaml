@@ -8,10 +8,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="SpringGreen">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBox Width="150" Height="40" Text="{Binding CurrentWord.Word,Mode=TwoWay}" FontSize="16" Background="White"></TextBox>
             <Button Width="120" Name="Add" Command="{Binding AddWordCommand}" Height="40" FontSize="16" Content="Add Word" Margin="50" Background="White"></Button>
             <Button Width="120" Name="Done" Command="{Binding DoneCommand}" Height="40" FontSize="18" Content="Done"  Background="White"></Button>
+            
         </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="50">
+                <Button Width="120" Name="Draging" Command="{Binding DragCommand}" Margin="100,0" Height="40" FontSize="18" Content="Done"  Background="White"></Button>
+                <ListView Width="200" Height="100" Margin="100,0"></ListView>
+            </StackPanel>
+        </StackPanel>
+        
     </Grid>
 </Window>
