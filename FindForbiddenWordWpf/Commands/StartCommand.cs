@@ -41,7 +41,7 @@ namespace FindForbiddenWordWpf.Commands
         {
             Data = String.Empty;
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(10);
+            timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
             timer.Start();
             try
@@ -72,7 +72,7 @@ namespace FindForbiddenWordWpf.Commands
                     }
                     DirSearch(d);
                 }
-                WordViewModel.Notification = "Process finished .";
+               // WordViewModel.Notification = "Process finished .";
                 
             }
             catch (System.Exception excpt)
