@@ -46,8 +46,6 @@ namespace FindForbiddenWordWpf.Commands
             timer.Start();
             try
             {
-
-
                 foreach (string d in Directory.GetDirectories(sDir))
                 {
                     foreach (string f in Directory.GetFiles(d))
@@ -73,7 +71,7 @@ namespace FindForbiddenWordWpf.Commands
                     DirSearch(d);
                 }
                // WordViewModel.Notification = "Process finished .";
-                
+               timer.Stop();
             }
             catch (System.Exception excpt)
             {
@@ -81,15 +79,13 @@ namespace FindForbiddenWordWpf.Commands
             }
 
         }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             WordViewModel.All_Files_Count += 1;
         }
-
         public void Execute(object parameter)
         {
-            DirSearch(@"C:\Users\Jama_yw17\source\repos\FindForbiddenWordWpf\FindForbiddenWordWpf\bin\Debug\MyFolder1");
+            DirSearch(@"C:\Users\Jama_yw17");
             Config config = new Config()
             {
                 FileName = "words.json"
