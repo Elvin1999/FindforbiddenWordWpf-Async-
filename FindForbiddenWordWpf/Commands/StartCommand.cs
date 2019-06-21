@@ -65,7 +65,6 @@ namespace FindForbiddenWordWpf.Commands
                     }
                     DirSearch(d);
                 }
-
             }
             catch (System.Exception excpt)
             {

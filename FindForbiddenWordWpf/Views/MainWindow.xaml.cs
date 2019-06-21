@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace FindForbiddenWordWpf
 {
     /// <summary>
@@ -41,11 +40,8 @@ namespace FindForbiddenWordWpf
             }      
             DataContext = wordViewModel;
         }
-
-   
         private void WordListView_DragEnter(object sender, DragEventArgs e)
         {
-            //MessageBox.Show("I entered");
             e.Effects = DragDropEffects.All;
         }
         private void WriteNewData(string filename)
@@ -61,7 +57,6 @@ namespace FindForbiddenWordWpf
                 config.FileName = "words.json";
                 if (File.Exists(config.FileName))
                 {
-
                     config.ForbiddenWords = config.DeserializeFilialsFromJson();
                     config.ForbiddenWords.AddRange(items);
                     config.SeriailizeFilialsToJson();
@@ -70,14 +65,12 @@ namespace FindForbiddenWordWpf
                 {
                     config.ForbiddenWords = items;
                 }
-
                 config.SeriailizeFilialsToJson();
                 wordViewModel.AllWords.AddRange(items);
             }
         }
         private void WordListView_Drop(object sender, DragEventArgs e)
         {
-            //MessageBox.Show("I dropped");
             var mydata = e.Data.GetData(DataFormats.FileDrop) as string[];
             var Info = new FileInfo(mydata[0]);
             var filename = Info.FullName;
@@ -85,3 +78,12 @@ namespace FindForbiddenWordWpf
         }
     }
 }
+
+
+
+
+
+
+
+
+
