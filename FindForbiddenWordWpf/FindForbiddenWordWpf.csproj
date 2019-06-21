@@ -66,6 +66,7 @@
     <Compile Include="AdditionalClasses\ReadTxt.cs" />
     <Compile Include="Commands\AddWordCommand.cs" />
     <Compile Include="Commands\DoneCommand.cs" />
+    <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Entities\ForbiddenWord.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

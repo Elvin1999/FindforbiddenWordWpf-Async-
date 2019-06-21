@@ -8,6 +8,7 @@ namespace FindForbiddenWordWpf.AdditionalClasses
 {
    public class ForbiddenWord
     {
-        public string Word { get; set; }
+        public string Word {get; set;}
+        public int Count { get; set; } = 0;
     }
 }

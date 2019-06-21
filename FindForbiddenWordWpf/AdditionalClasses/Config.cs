@@ -12,7 +12,6 @@ namespace FindForbiddenWordWpf.AdditionalClasses
     {
         public List<ForbiddenWord> ForbiddenWords { get; set; }
         public string FileName { get; set; }
-
         public void SeriailizeFilialsToJson()
         {
             using (StreamWriter sw = new StreamWriter("words.json"))
