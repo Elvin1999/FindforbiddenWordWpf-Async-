@@ -17,7 +17,7 @@
         </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="50">
                 <Button Width="120" Name="Draging" Command="{Binding DragCommand}" Margin="100,0" Height="40" FontSize="18" Content="Done"  Background="White"></Button>
-                <ListView Width="200" Height="100" Margin="100,0"></ListView>
+                <ListView AllowDrop="True" Name="wordListView" Width="200" DragEnter="WordListView_DragEnter" DragDrop.Drop="WordListView_Drop" Height="100" Margin="100,0"></ListView>
             </StackPanel>
         </StackPanel>
         

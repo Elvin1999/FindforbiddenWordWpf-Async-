@@ -38,6 +38,17 @@ namespace FindForbiddenWordWpf
                 wordViewModel.AllWords = new List<ForbiddenWord>();
             }      
             DataContext = wordViewModel;
-        }       
+        }
+
+   
+        private void WordListView_DragEnter(object sender, DragEventArgs e)
+        {
+            //MessageBox.Show("I entered");
+        }
+
+        private void WordListView_Drop(object sender, DragEventArgs e)
+        {
+            //MessageBox.Show("I dropped");
+        }
     }
 }
