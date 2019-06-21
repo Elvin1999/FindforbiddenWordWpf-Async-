@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace FindForbiddenWordWpf.Commands
 {
@@ -38,6 +40,10 @@ namespace FindForbiddenWordWpf.Commands
         public void DirSearch(string sDir)
         {
             Data = String.Empty;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(10);
+            timer.Tick += Timer_Tick;
+            timer.Start();
             try
             {
 
@@ -45,19 +51,20 @@ namespace FindForbiddenWordWpf.Commands
                 foreach (string d in Directory.GetDirectories(sDir))
                 {
                     foreach (string f in Directory.GetFiles(d))
-                    {
+                    {                        
                         foreach (var item in WordViewModel.AllWords)
                         {
+                                  
                             if (f.Contains(".txt"))
                             {
                                 using (StreamReader sr = new StreamReader(f))
                                 {
-
                                     Data = sr.ReadToEnd();
                                 }
                                 if (HasForbiddenWord(item.Word))
                                 {
                                     ++item.Count;
+
                                 }
                             }
                         }
@@ -66,6 +73,7 @@ namespace FindForbiddenWordWpf.Commands
                     DirSearch(d);
                 }
                 WordViewModel.Notification = "Process finished .";
+                
             }
             catch (System.Exception excpt)
             {
@@ -73,6 +81,12 @@ namespace FindForbiddenWordWpf.Commands
             }
 
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            WordViewModel.All_Files_Count += 1;
+        }
+
         public void Execute(object parameter)
         {
             DirSearch(@"C:\Users\Jama_yw17\source\repos\FindForbiddenWordWpf\FindForbiddenWordWpf\bin\Debug\MyFolder1");

@@ -20,6 +20,16 @@ namespace FindForbiddenWordWpf.ViewModels
         {
             CurrentWord = new ForbiddenWord();
         }
+        private int all_Files_Count;
+        public int All_Files_Count
+        {
+            get { return all_Files_Count; }
+            set
+            {
+                all_Files_Count = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(All_Files_Count)));
+            }
+        }
         private string notification;
         public string Notification
         {
