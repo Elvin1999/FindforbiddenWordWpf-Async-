@@ -2,6 +2,7 @@
 using FindForbiddenWordWpf.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,16 @@ namespace FindForbiddenWordWpf
         {
             InitializeComponent();
             WordViewModel wordViewModel = new WordViewModel();
-            wordViewModel.AllWords = new List<ForbiddenWord>();
+            Config = new Config();
+            if (File.Exists("words.json"))
+            {
+                wordViewModel.AllWords = Config.DeserializeFilialsFromJson();
+            }
+            else
+            {
+                wordViewModel.AllWords = new List<ForbiddenWord>();
+            }
+      
             DataContext = wordViewModel;
 
         }
