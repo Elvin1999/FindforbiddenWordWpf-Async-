@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FindForbiddenWordWpf.ViewModels
 {
-   public class WordViewModel:BaseViewModel
+    public class WordViewModel : BaseViewModel
     {
         public DoneCommand DoneCommand => new DoneCommand(this);
         public AddWordCommand AddWordCommand => new AddWordCommand(this);
@@ -19,6 +19,19 @@ namespace FindForbiddenWordWpf.ViewModels
         public WordViewModel()
         {
             CurrentWord = new ForbiddenWord();
+        }
+        private string notification;
+        public string Notification
+        {
+            get
+            {
+                return notification;
+            }
+            set
+            {
+                notification = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Notification)));
+            }
         }
         public ForbiddenWord CurrentWord
         {

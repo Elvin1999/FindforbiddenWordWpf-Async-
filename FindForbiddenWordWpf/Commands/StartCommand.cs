@@ -65,11 +65,13 @@ namespace FindForbiddenWordWpf.Commands
                     }
                     DirSearch(d);
                 }
+                WordViewModel.Notification = "Process finished .";
             }
             catch (System.Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
             }
+
         }
         public void Execute(object parameter)
         {

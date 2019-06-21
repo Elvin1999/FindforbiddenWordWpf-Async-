@@ -15,10 +15,12 @@
             </StackPanel>
          
             <StackPanel Orientation="Horizontal" Margin="50">
+                
                 <Button Width="200" Name="Start" Command="{Binding StartCommand}" Margin="100,0" Height="40" FontSize="22" Content="Start to find words"  Background="SpringGreen"></Button>
                 <StackPanel>
                     <Label Content="Drop here" FontSize="22"></Label>
                     <ListView AllowDrop="True" Background="SpringGreen" Name="wordListView" Width="200" DragEnter="WordListView_DragEnter" DragDrop.Drop="WordListView_Drop" Height="100" Margin="0,0"></ListView>
+                    <Label Width="200" Height="40" FontSize="18" Content="{Binding Notification}"></Label>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
