@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FindForbiddenWordWpf.AdditionalClasses;
+using FindForbiddenWordWpf.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace FindForbiddenWordWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Config Config { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            WordViewModel wordViewModel = new WordViewModel();
+            wordViewModel.AllWords = new List<ForbiddenWord>();
+            DataContext = wordViewModel;
+
         }
+       
     }
 }
