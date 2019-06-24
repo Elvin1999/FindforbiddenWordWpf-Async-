@@ -37,24 +37,46 @@ namespace FindForbiddenWordWpf.Commands
             return false;
         }
         public string Data { get; set; }
-        public void DirSearch(string sDir)
+        public int FileCount { get; set; } = 0;
+        public void SetFileCount(string sDir)
         {
-            Data = String.Empty;
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
-            timer.Tick += Timer_Tick;
-            timer.Start();
+
             try
             {
                 foreach (string d in Directory.GetDirectories(sDir))
                 {
                     foreach (string f in Directory.GetFiles(d))
-                    {                        
+                    {
+                        FileCount++;
+                    }
+                    SetFileCount(d);
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.Message);
+            }
+
+        }
+        public void DirSearch(string sDir)
+        {
+            Data = String.Empty;
+
+            try
+            {
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
+
+                        counter++;
+                        WordViewModel.All_Files_Count = counter * 100 / FileCount;
                         foreach (var item in WordViewModel.AllWords)
                         {
-                                  
+
                             if (f.Contains(".txt"))
                             {
+
                                 using (StreamReader sr = new StreamReader(f))
                                 {
                                     Data = sr.ReadToEnd();
@@ -70,8 +92,7 @@ namespace FindForbiddenWordWpf.Commands
                     }
                     DirSearch(d);
                 }
-               // WordViewModel.Notification = "Process finished .";
-               timer.Stop();
+                //WordViewModel.Notification = "Process finished .";
             }
             catch (System.Exception excpt)
             {
@@ -79,13 +100,16 @@ namespace FindForbiddenWordWpf.Commands
             }
 
         }
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            WordViewModel.All_Files_Count += 1;
-        }
+        int counter = 0;
+        int divCount = 0;
         public void Execute(object parameter)
         {
-            DirSearch(@"C:\Users\Jama_yw17");
+            SetFileCount(@"C:\Users\Jama_yw17\source");
+
+            MessageBox.Show(FileCount.ToString());
+
+            DirSearch(@"C:\Users\Jama_yw17\source");
+       
             Config config = new Config()
             {
                 FileName = "words.json"

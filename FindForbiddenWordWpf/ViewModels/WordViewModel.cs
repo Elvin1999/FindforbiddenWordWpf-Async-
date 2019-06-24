@@ -30,6 +30,7 @@ namespace FindForbiddenWordWpf.ViewModels
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(All_Files_Count)));
             }
         }
+        public int ProgressBarMaximum { get; set; }
         private string notification;
         public string Notification
         {

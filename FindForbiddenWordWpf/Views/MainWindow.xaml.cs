@@ -37,7 +37,8 @@ namespace FindForbiddenWordWpf
             else
             {
                 wordViewModel.AllWords = new List<ForbiddenWord>();
-            }      
+            }
+            wordViewModel.ProgressBarMaximum = Convert.ToInt32(filesProgressBar.Maximum);
             DataContext = wordViewModel;
         }
         private void WordListView_DragEnter(object sender, DragEventArgs e)
