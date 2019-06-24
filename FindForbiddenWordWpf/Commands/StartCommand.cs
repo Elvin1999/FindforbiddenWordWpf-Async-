@@ -104,11 +104,9 @@ namespace FindForbiddenWordWpf.Commands
         int divCount = 0;
         public void Execute(object parameter)
         {
-            SetFileCount(@"C:\Users\Jama_yw17\source");
-
-            MessageBox.Show(FileCount.ToString());
-
-            DirSearch(@"C:\Users\Jama_yw17\source");
+            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-\FindForbiddenWordWpf\bin\Debug";
+            SetFileCount(file_name);
+            DirSearch(file_name);
        
             Config config = new Config()
             {
