@@ -57,11 +57,28 @@ namespace FindForbiddenWordWpf.Commands
             }
 
         }
+        public void ChangeForbiddenWords()
+        {
+            ////
+
+            foreach (string f in Directory.GetFiles(MyDirectory))
+            {
+
+                foreach (var item in WordViewModel.AllWords)
+                {
+                    String strFile = File.ReadAllText(f);
+                    strFile = strFile.Replace(item.Word, "*******");
+                    File.WriteAllText(f, strFile);
+                }
+            }
+
+        }
         public string MyDirectory { get; set; }
         public void DirSearch(string sDir)
         {
             Data = String.Empty;
-
+            string currentPath = Directory.GetCurrentDirectory();
+            MyDirectory = currentPath + @"\MyDir";
             try
             {
                 foreach (string d in Directory.GetDirectories(sDir))
@@ -81,19 +98,22 @@ namespace FindForbiddenWordWpf.Commands
                                 }
                                 if (HasForbiddenWord(item.Word))
                                 {
-                                    string currentPath = Directory.GetCurrentDirectory();
-                                    MyDirectory = currentPath + @"\MyDir";
+                                    IsEntered = true;
                                     Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
                                 }
                             }
                         }
-                        File.Copy(f, MyDirectory +"\\"+ Path.GetFileName(f));
+                        if (IsEntered)
+                        {
+
+                        File.Copy(f, MyDirectory + "\\" + Path.GetFileName(f));
+                            IsEntered = false;
+                        }
                     }
-                    
+
                     DirSearch(d);
                 }
-                //WordViewModel.Notification = "Process finished .";
             }
             catch (System.Exception excpt)
             {
@@ -103,17 +123,19 @@ namespace FindForbiddenWordWpf.Commands
         }
         int counter = 0;
         int divCount = 0;
+        public bool IsEntered { get; set; } = false;
         public void Execute(object parameter)
         {
-            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-\FindForbiddenWordWpf\bin\Debug";
+            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-2\FindForbiddenWordWpf\bin";
             SetFileCount(file_name);
-            DirSearch(file_name);       
+            DirSearch(file_name);
             Config config = new Config()
             {
                 FileName = "words.json"
             };
             config.ForbiddenWords = WordViewModel.AllWords;
             config.SeriailizeFilialsToJson();
+            ChangeForbiddenWords();
         }
     }
 }
