@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-
 namespace FindForbiddenWordWpf.Commands
 {
     public class StartCommand : ICommand
@@ -58,6 +57,7 @@ namespace FindForbiddenWordWpf.Commands
             }
 
         }
+        public string MyDirectory { get; set; }
         public void DirSearch(string sDir)
         {
             Data = String.Empty;
@@ -73,23 +73,24 @@ namespace FindForbiddenWordWpf.Commands
                         WordViewModel.All_Files_Count = counter * 100 / FileCount;
                         foreach (var item in WordViewModel.AllWords)
                         {
-
                             if (f.Contains(".txt"))
                             {
-
                                 using (StreamReader sr = new StreamReader(f))
                                 {
                                     Data = sr.ReadToEnd();
                                 }
                                 if (HasForbiddenWord(item.Word))
                                 {
+                                    string currentPath = Directory.GetCurrentDirectory();
+                                    MyDirectory = currentPath + @"\MyDir";
+                                    Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
-
                                 }
                             }
                         }
-
+                        File.Copy(f, MyDirectory +"\\"+ Path.GetFileName(f));
                     }
+                    
                     DirSearch(d);
                 }
                 //WordViewModel.Notification = "Process finished .";
@@ -106,8 +107,7 @@ namespace FindForbiddenWordWpf.Commands
         {
             string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-\FindForbiddenWordWpf\bin\Debug";
             SetFileCount(file_name);
-            DirSearch(file_name);
-       
+            DirSearch(file_name);       
             Config config = new Config()
             {
                 FileName = "words.json"
