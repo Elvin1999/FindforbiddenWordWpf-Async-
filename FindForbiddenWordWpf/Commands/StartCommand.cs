@@ -17,8 +17,9 @@ namespace FindForbiddenWordWpf.Commands
         public StartCommand(WordViewModel wordViewModel)
         {
             WordViewModel = wordViewModel;
+            Reports = new List<Report>();
         }
-
+        public List<Report> Reports { get; set; }
         public event EventHandler CanExecuteChanged;
         public WordViewModel WordViewModel { get; set; }
         public bool CanExecute(object parameter)
@@ -74,8 +75,10 @@ namespace FindForbiddenWordWpf.Commands
 
         }
         public string MyDirectory { get; set; }
+        public Report Report { get; set; }
         public void DirSearch(string sDir)
         {
+            
             Data = String.Empty;
             string currentPath = Directory.GetCurrentDirectory();
             MyDirectory = currentPath + @"\MyDir";
@@ -85,7 +88,8 @@ namespace FindForbiddenWordWpf.Commands
                 {
                     foreach (string f in Directory.GetFiles(d))
                     {
-
+                        Report = new Report();
+                        Report.ForbiddenWords = new List<string>();
                         counter++;
                         WordViewModel.All_Files_Count = counter * 100 / FileCount;
                         foreach (var item in WordViewModel.AllWords)
@@ -98,17 +102,18 @@ namespace FindForbiddenWordWpf.Commands
                                 }
                                 if (HasForbiddenWord(item.Word))
                                 {
-
                                     Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
+                                    Report.ForbiddenWords.Add(item.Word);
                                 }
                             }
                         }
                         File.Copy(f, MyDirectory + "\\" + Path.GetFileName(f));
-
-
+                        FileInfo fileInfo = new FileInfo(f);
+                        Report.FileSize = fileInfo.Length;
+                        Report.FilePath = fileInfo.FullName;
+                        Reports.Add(Report);
                     }
-
                     DirSearch(d);
                 }
             }
@@ -116,7 +121,6 @@ namespace FindForbiddenWordWpf.Commands
             {
                 Console.WriteLine(excpt.Message);
             }
-
         }
         int counter = 0;
         public bool IsEntered { get; set; } = false;
@@ -132,6 +136,15 @@ namespace FindForbiddenWordWpf.Commands
             config.ForbiddenWords = WordViewModel.AllWords;
             config.SeriailizeFilialsToJson();
             ChangeForbiddenWords();
+            foreach (var item in Reports)
+            {
+                string d = String.Empty;
+                foreach (var i in item.ForbiddenWords)
+                {
+                    d += i + " ";
+                }
+                MessageBox.Show(item.FilePath+" "+item.FileSize+" "+d);
+            }
         }
     }
 }
