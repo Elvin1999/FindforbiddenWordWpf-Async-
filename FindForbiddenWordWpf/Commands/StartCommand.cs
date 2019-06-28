@@ -59,7 +59,7 @@ namespace FindForbiddenWordWpf.Commands
         }
         public void ChangeForbiddenWords()
         {
-            ////
+
 
             foreach (string f in Directory.GetFiles(MyDirectory))
             {
@@ -98,18 +98,15 @@ namespace FindForbiddenWordWpf.Commands
                                 }
                                 if (HasForbiddenWord(item.Word))
                                 {
-                                    IsEntered = true;
+
                                     Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
                                 }
                             }
                         }
-                        if (IsEntered)
-                        {
-
                         File.Copy(f, MyDirectory + "\\" + Path.GetFileName(f));
-                            IsEntered = false;
-                        }
+
+
                     }
 
                     DirSearch(d);
@@ -122,11 +119,10 @@ namespace FindForbiddenWordWpf.Commands
 
         }
         int counter = 0;
-        int divCount = 0;
         public bool IsEntered { get; set; } = false;
         public void Execute(object parameter)
         {
-            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-2\FindForbiddenWordWpf\bin";
+            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-3\FindForbiddenWordWpf\bin\Debug\FFFWords";
             SetFileCount(file_name);
             DirSearch(file_name);
             Config config = new Config()
