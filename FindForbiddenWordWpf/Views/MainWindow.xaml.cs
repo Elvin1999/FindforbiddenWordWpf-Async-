@@ -29,10 +29,9 @@ namespace FindForbiddenWordWpf
             InitializeComponent();
             wordViewModel = new WordViewModel();
             Config = new Config();
-            Config.FileName = "words.json";
-            if (File.Exists(Config.FileName))
+            if (File.Exists("words.json"))
             {
-                wordViewModel.AllWords = Config.DeserializeFilialsFromJson();
+                wordViewModel.AllWords = Config.DeserializeWordsFromJson();
             }
             else
             {
@@ -55,18 +54,18 @@ namespace FindForbiddenWordWpf
             if (items != null)
             {
                 Config config = new Config();
-                config.FileName = "words.json";
-                if (File.Exists(config.FileName))
+            
+                if (File.Exists("words.json"))
                 {
-                    config.ForbiddenWords = config.DeserializeFilialsFromJson();
+                    config.ForbiddenWords = config.DeserializeWordsFromJson();
                     config.ForbiddenWords.AddRange(items);
-                    config.SeriailizeFilialsToJson();
+                    config.SeriailizeWordsToJson();
                 }
                 else
                 {
                     config.ForbiddenWords = items;
                 }
-                config.SeriailizeFilialsToJson();
+                config.SeriailizeWordsToJson();
                 wordViewModel.AllWords.AddRange(items);
             }
         }

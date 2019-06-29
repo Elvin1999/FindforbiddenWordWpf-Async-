@@ -11,8 +11,8 @@ namespace FindForbiddenWordWpf.AdditionalClasses
    public class Config
     {
         public List<ForbiddenWord> ForbiddenWords { get; set; }
-        public string FileName { get; set; }
-        public void SeriailizeFilialsToJson()
+        public List<Report> Reports { get; set; }
+        public void SeriailizeWordsToJson()
         {
             using (StreamWriter sw = new StreamWriter("words.json"))
             {
@@ -20,7 +20,7 @@ namespace FindForbiddenWordWpf.AdditionalClasses
                 sw.WriteLine(item);
             }
         }
-        public List<ForbiddenWord> DeserializeFilialsFromJson()
+        public List<ForbiddenWord> DeserializeWordsFromJson()
         {
             try
             {
@@ -30,8 +30,27 @@ namespace FindForbiddenWordWpf.AdditionalClasses
             catch (Exception)
             {
             }
-
             return ForbiddenWords;
+        }
+        public void SeriailizeReportsToJson()
+        {
+            using (StreamWriter sw = new StreamWriter("reports.json"))
+            {
+                var item = JsonConvert.SerializeObject(Reports);
+                sw.WriteLine(item);
+            }
+        }
+        public List<Report> DeserializeReportsFromJson()
+        {
+            try
+            {
+                var context = File.ReadAllText("reports.json");
+                Reports = JsonConvert.DeserializeObject<List<Report>>(context);
+            }
+            catch (Exception)
+            {
+            }
+            return Reports;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace FindForbiddenWordWpf.Commands
             {
                 Config config = new Config();
                 config.ForbiddenWords = WordViewModel.AllWords;
-                config.SeriailizeFilialsToJson();
+                config.SeriailizeWordsToJson();
             }
         }
     }

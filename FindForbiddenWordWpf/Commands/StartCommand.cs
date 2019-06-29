@@ -126,16 +126,15 @@ namespace FindForbiddenWordWpf.Commands
         public bool IsEntered { get; set; } = false;
         public void Execute(object parameter)
         {
-            string file_name = @"C:\Users\Jama_yw17\source\repos\FindforbiddenWordWpf-Async-3\FindForbiddenWordWpf\bin\Debug\FFFWords";
+            string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2\FindForbiddenWordWpf\bin\Debug";
             SetFileCount(file_name);
             DirSearch(file_name);
-            Config config = new Config()
-            {
-                FileName = "words.json"
-            };
+            Config config = new Config();
             config.ForbiddenWords = WordViewModel.AllWords;
-            config.SeriailizeFilialsToJson();
-            ChangeForbiddenWords();
+            config.SeriailizeWordsToJson();
+            config.Reports = Reports;
+            config.SeriailizeReportsToJson();
+            ChangeForbiddenWords();          
             foreach (var item in Reports)
             {
                 string d = String.Empty;
