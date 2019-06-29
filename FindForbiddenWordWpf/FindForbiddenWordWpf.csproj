@@ -67,6 +67,8 @@
     <Compile Include="AdditionalClasses\Report.cs" />
     <Compile Include="Commands\AddWordCommand.cs" />
     <Compile Include="Commands\DoneCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
+    <Compile Include="Commands\ResumeCommand.cs" />
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Entities\ForbiddenWord.cs" />
     <Compile Include="App.xaml.cs">

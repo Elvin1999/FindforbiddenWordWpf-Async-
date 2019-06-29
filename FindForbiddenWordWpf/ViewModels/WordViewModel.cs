@@ -14,6 +14,8 @@ namespace FindForbiddenWordWpf.ViewModels
         public DoneCommand DoneCommand => new DoneCommand(this);
         public AddWordCommand AddWordCommand => new AddWordCommand(this);
         public StartCommand StartCommand => new StartCommand(this);
+        public PauseCommand PauseCommand => new PauseCommand(this);
+        public ResumeCommand ResumeCommand => new ResumeCommand(this);
         public List<ForbiddenWord> AllWords { get; set; }
         private ForbiddenWord currentWord;
         public WordViewModel()
