@@ -20,7 +20,6 @@ namespace FindForbiddenWordWpf.Commands
         {
             return true;
         }
-
         public void Execute(object parameter)
         {
             throw new NotImplementedException();
