@@ -25,11 +25,12 @@ namespace FindForbiddenWordWpf.Commands
             }
             else
             {
-
-                Reports = new List<Report>();
+                Reports = new Reports();
+                Reports.AllReports = new List<Report>();
             }
+            Reports.Top10FamousWord = new List<ForbiddenWord>();
         }
-        public List<Report> Reports { get; set; }
+        public Reports Reports { get; set; }
         public event EventHandler CanExecuteChanged;
         public WordViewModel WordViewModel { get; set; }
         public bool CanExecute(object parameter)
@@ -128,7 +129,7 @@ namespace FindForbiddenWordWpf.Commands
                             FileInfo fileInfo = new FileInfo(f);
                             Report.FileSize = fileInfo.Length;
                             Report.FilePath = fileInfo.FullName;
-                            Reports.Add(Report);
+                            Reports.AllReports.Add(Report);
                         }
                         catch (Exception)
                         {
@@ -147,27 +148,27 @@ namespace FindForbiddenWordWpf.Commands
         public bool IsEntered { get; set; } = false;
         public void Execute(object parameter)
         {
-            string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2\FindForbiddenWordWpf";
+            string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2";
             SetFileCount(file_name);
             DirSearch(file_name);
             config.ForbiddenWords = WordViewModel.AllWords;
             config.SeriailizeWordsToJson();
-            config.Reports = Reports;
-            config.SeriailizeReportsToJson();
-            ChangeForbiddenWords();
             var items = WordViewModel.AllWords.OrderByDescending(x => x.Count).ToList();
             if (items.Count >= 10)
             {
-
                 var top10Items = items.Take(10).ToList();
-                config.ForbiddenWords = top10Items;
 
+                Reports.Top10FamousWord = top10Items;
             }
             else
             {
-                config.ForbiddenWords = items;
+                Reports.Top10FamousWord = items;
 
             }
+            config.Reports = Reports;
+            config.SeriailizeReportsToJson();
+            ChangeForbiddenWords();
+            
             config.SeriailizeWordsToJson();
 
         }

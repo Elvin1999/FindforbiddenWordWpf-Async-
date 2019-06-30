@@ -65,6 +65,7 @@
     <Compile Include="AdditionalClasses\Config.cs" />
     <Compile Include="AdditionalClasses\ReadTxt.cs" />
     <Compile Include="AdditionalClasses\Report.cs" />
+    <Compile Include="AdditionalClasses\Reports.cs" />
     <Compile Include="Commands\AddWordCommand.cs" />
     <Compile Include="Commands\DoneCommand.cs" />
     <Compile Include="Commands\PauseCommand.cs" />
