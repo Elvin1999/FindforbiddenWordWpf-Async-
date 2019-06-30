@@ -125,11 +125,14 @@ namespace FindForbiddenWordWpf.Commands
                         }
                         try
                         {
+
                             File.Copy(copyfile, MyDirectory + "\\" + Path.GetFileName(copyfile));
                             FileInfo fileInfo = new FileInfo(f);
                             Report.FileSize = fileInfo.Length;
                             Report.FilePath = fileInfo.FullName;
                             Reports.AllReports.Add(Report);
+
+
                         }
                         catch (Exception)
                         {
@@ -149,10 +152,14 @@ namespace FindForbiddenWordWpf.Commands
         public void Execute(object parameter)
         {
             string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2";
-            SetFileCount(file_name);
-            DirSearch(file_name);
-            config.ForbiddenWords = WordViewModel.AllWords;
-            config.SeriailizeWordsToJson();
+            SetFileCount(file_name);//no thread        
+            Task.Factory.StartNew(() => { DirSearch(file_name); }).Wait();//thread
+            Task.Factory.StartNew(() =>
+            {
+                config.ForbiddenWords = WordViewModel.AllWords;
+                config.SeriailizeWordsToJson();
+            });//thread
+
             var items = WordViewModel.AllWords.OrderByDescending(x => x.Count).ToList();
             if (items.Count >= 10)
             {
@@ -163,14 +170,11 @@ namespace FindForbiddenWordWpf.Commands
             else
             {
                 Reports.Top10FamousWord = items;
-
             }
             config.Reports = Reports;
-            config.SeriailizeReportsToJson();
-            ChangeForbiddenWords();
-            
-            config.SeriailizeWordsToJson();
-
+            Task.Factory.StartNew(() => { config.SeriailizeReportsToJson(); });//thread
+            Task.Factory.StartNew(() => { ChangeForbiddenWords(); });//thread
+            Task.Factory.StartNew(() => { config.SeriailizeWordsToJson(); });//thread
         }
     }
 }
