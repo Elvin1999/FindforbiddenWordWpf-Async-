@@ -11,5 +11,6 @@ namespace FindForbiddenWordWpf.AdditionalClasses
         public string FilePath { get; set; }
         public long FileSize { get; set; }
         public List<string> ForbiddenWords { get; set; }
+
     }
 }

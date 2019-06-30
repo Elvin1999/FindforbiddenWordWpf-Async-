@@ -104,7 +104,7 @@ namespace FindForbiddenWordWpf.Commands
                         Report.ForbiddenWords = new List<string>();
                         counter++;
                         WordViewModel.All_Files_Count = counter * 100 / FileCount + 1;
-                       // MessageBox.Show(counter.ToString());
+                        // MessageBox.Show(counter.ToString());
                         foreach (var item in WordViewModel.AllWords)
                         {
                             if (f.Contains(".txt"))
@@ -150,12 +150,25 @@ namespace FindForbiddenWordWpf.Commands
             string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2\FindForbiddenWordWpf";
             SetFileCount(file_name);
             DirSearch(file_name);
-
             config.ForbiddenWords = WordViewModel.AllWords;
             config.SeriailizeWordsToJson();
             config.Reports = Reports;
             config.SeriailizeReportsToJson();
             ChangeForbiddenWords();
+            var items = WordViewModel.AllWords.OrderByDescending(x => x.Count).ToList();
+            if (items.Count >= 10)
+            {
+
+                var top10Items = items.Take(10).ToList();
+                config.ForbiddenWords = top10Items;
+
+            }
+            else
+            {
+                config.ForbiddenWords = items;
+
+            }
+            config.SeriailizeWordsToJson();
 
         }
     }
