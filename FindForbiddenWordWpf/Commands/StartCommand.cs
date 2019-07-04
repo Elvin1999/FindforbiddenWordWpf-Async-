@@ -87,6 +87,11 @@ namespace FindForbiddenWordWpf.Commands
         }
         public string MyDirectory { get; set; }
         public Report Report { get; set; }
+        public void CallDirSearch()
+        {
+            Task.Factory.StartNew(() => { DirSearch(file_name); }).Wait();//thread
+            WordViewModel.Thread = Thread.CurrentThread;
+        }
         public void DirSearch(string sDir)
         {
 
@@ -108,6 +113,7 @@ namespace FindForbiddenWordWpf.Commands
                         // MessageBox.Show(counter.ToString());
                         foreach (var item in WordViewModel.AllWords)
                         {
+
                             if (f.Contains(".txt"))
                             {
                                 using (StreamReader sr = new StreamReader(f))
@@ -119,7 +125,7 @@ namespace FindForbiddenWordWpf.Commands
                                     Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
                                     Report.ForbiddenWords.Add(item.Word);
-                                    copyfile = f; 
+                                    copyfile = f;
                                 }
                             }
                         }
@@ -149,12 +155,14 @@ namespace FindForbiddenWordWpf.Commands
         }
         int counter = 0;
         public bool IsEntered { get; set; } = false;
+        public string file_name { get; set; }
         public void Execute(object parameter)
         {
-            string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2";
-            SetFileCount(file_name);//no thread        
-            Task.Factory.StartNew(() => { DirSearch(file_name); }).Wait();//thread
-            WordViewModel.Thread = Thread.CurrentThread;
+            file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2";
+            SetFileCount(file_name);//no thread  
+            CallDirSearch();
+
+            
             Task.Factory.StartNew(() =>
             {
                 config.ForbiddenWords = WordViewModel.AllWords;
