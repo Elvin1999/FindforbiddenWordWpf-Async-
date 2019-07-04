@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FindForbiddenWordWpf.ViewModels
@@ -18,6 +19,7 @@ namespace FindForbiddenWordWpf.ViewModels
         public ResumeCommand ResumeCommand => new ResumeCommand(this);
         public List<ForbiddenWord> AllWords { get; set; }
         private ForbiddenWord currentWord;
+        public Thread Thread { get; set; }
         public WordViewModel()
         {
             CurrentWord = new ForbiddenWord();

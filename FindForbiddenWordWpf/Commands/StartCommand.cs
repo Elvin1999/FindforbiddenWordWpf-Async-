@@ -154,6 +154,7 @@ namespace FindForbiddenWordWpf.Commands
             string file_name = @"C:\Users\Documents\source\repos\FindforbiddenWordWpf-Async-2";
             SetFileCount(file_name);//no thread        
             Task.Factory.StartNew(() => { DirSearch(file_name); }).Wait();//thread
+            WordViewModel.Thread = Thread.CurrentThread;
             Task.Factory.StartNew(() =>
             {
                 config.ForbiddenWords = WordViewModel.AllWords;

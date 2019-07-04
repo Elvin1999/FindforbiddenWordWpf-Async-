@@ -24,7 +24,15 @@ namespace FindForbiddenWordWpf.Commands
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            //if (WordViewModel.Thread.ThreadState != System.Threading.ThreadState.Suspended)
+            //{
+
+            //    WordViewModel.Thread.Suspend();
+            //}
+            //else
+            //{
+            //    WordViewModel.Thread.Resume();
+            //}
         }
     }
 }
