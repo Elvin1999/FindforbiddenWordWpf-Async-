@@ -119,7 +119,7 @@ namespace FindForbiddenWordWpf.Commands
                                     Directory.CreateDirectory(MyDirectory);
                                     ++item.Count;
                                     Report.ForbiddenWords.Add(item.Word);
-                                    copyfile = f;
+                                    copyfile = f; 
                                 }
                             }
                         }
